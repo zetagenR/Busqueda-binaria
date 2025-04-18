@@ -30,22 +30,30 @@ def busqueda_binaria_recursiva(lista, objetivo, inicio=0, fin=None):
         return busqueda_binaria_recursiva(lista, objetivo, inicio, medio - 1)
 
 
-#Entrada por teclado
-entrada = input("Ingresa una lista ordenada de números separados por comas: ")
-lista_ordenada = list(map(int, entrada.split(",")))
+entrada = input("Ingresa una lista de números separados por comas: ")
+lista_ordenada = list(map(int, entrada.replace(" ", "").split(",")))
+lista_ordenada.sort()
 
-objetivo = int(input("¿Qué número deseas buscar? "))
+print("Lista ordenada:", lista_ordenada)
 
-#Resultados
-pos_iterativa = busqueda_binaria_iterativa(lista_ordenada, objetivo)
-pos_recursiva = busqueda_binaria_recursiva(lista_ordenada, objetivo)
+while True:
 
-if pos_iterativa != -1:
-    print(f"[Iterativa] El número {objetivo} está en la posición {pos_iterativa + 1}.")
-else:
-    print(f"[Iterativa] El número {objetivo} no está en la lista.")
+    objetivo = int(input("¿Qué número deseas buscar? "))
 
-if pos_recursiva != -1:
-    print(f"[Recursiva] El número {objetivo} está en la posición {pos_recursiva + 1}.")
-else:
-    print(f"[Recursiva] El número {objetivo} no está en la lista.")
+    pos_iterativa = busqueda_binaria_iterativa(lista_ordenada, objetivo)
+    pos_recursiva = busqueda_binaria_recursiva(lista_ordenada, objetivo)
+
+    if pos_iterativa != -1:
+        print(f"[Iterativa] El número {objetivo} está en la posición {pos_iterativa + 1}.")  # Mostramos la posición 1-based
+    else:
+        print(f"[Iterativa] El número {objetivo} no está en la lista.")
+
+    if pos_recursiva != -1:
+        print(f"[Recursiva] El número {objetivo} está en la posición {pos_recursiva + 1}.")  # Mostramos la posición 1-based
+    else:
+        print(f"[Recursiva] El número {objetivo} no está en la lista.")
+    
+    continuar = input("¿Quieres buscar otro número? (s/n): ").lower()
+    if continuar != 's':
+        print("Gracias por usar la búsqueda binaria.")
+        break
